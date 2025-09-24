@@ -61,7 +61,7 @@ func (c *TableSpaceDateFileInfoCollector) Collect(ch chan<- prometheus.Metric) {
 		// 将缓存中的 JSON 字符串转换为 TablespaceInfo 切片
 		if err := json.Unmarshal([]byte(cachedJSON), &tablespaceInfos); err != nil {
 			// 处理反序列化错误
-			logger.Errorf("[dmdbms_tablespace_file_total_info] Error unmarshaling cached data", err)
+			logger.Errorf("[dmdbms_tablespace_file_total_info] failed to unmarshal cached data: %v", err)
 			// 反序列化失败，忽略缓存中的数据，继续查询数据库
 			cachedJSON = "" // 清空缓存数据，确保后续不使用过期或损坏的数据
 		} else {
